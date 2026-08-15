@@ -218,6 +218,5 @@ __marimo__/
 .streamlit/secrets.toml
 CLAUDE.md
 
-# 本地学习过程记录（日志+计划+总计划），不提交；dsa-notes/ 是整理后的求职产出，例外提交
-study-log/*
-!study-log/dsa-notes
+# 本地学习过程记录（日志+计划+总计划），不提交
+study-log/
