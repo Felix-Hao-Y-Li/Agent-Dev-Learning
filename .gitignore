@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+CLAUDE.md
+
+# 本地学习过程记录，不提交
+daily-logs/
+study-plans/
