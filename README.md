@@ -16,7 +16,7 @@
 | Week 6 | 多智能体系统 |
 | Week 7-8 | 实战项目 + 面试准备 |
 
-与主线**并行**推进一条数据结构与算法学习线：参考《代码随想录》，配合 LeetCode 刷题，解题笔记整理在 `dsa-notes/`。
+与主线**并行**推进一条数据结构与算法学习线：参考《代码随想录》，配合 LeetCode 刷题，解题笔记整理在 `study-log/dsa-notes/`。
 
 详细的技术点、交付物和实时进度见 [CLAUDE.md](./CLAUDE.md)（本地文件，未提交到仓库）。
 
@@ -26,10 +26,10 @@
 week-01-llm-fundamentals-rag/   # 按周组织的学习产出（笔记 + 代码）
 week-02-advanced-rag/
 ...
-dsa-notes/                       # 数据结构与算法解题笔记
+study-log/dsa-notes/             # 数据结构与算法解题笔记
 ```
 
-`daily-logs/`（每日学习日志）和 `study-plans/`（每日学习计划）是本地工作台，内容变动频繁，不作为正式产出提交，已加入 `.gitignore`。
+`study-log/`（每日学习日志与计划，含并行的 `dsa/` 数据结构与算法分支）是本地工作台，内容变动频繁，不作为正式产出提交，已加入 `.gitignore`；其中的 `dsa-notes/` 子目录例外提交（见上）。
 
 ## 当前进度
 
