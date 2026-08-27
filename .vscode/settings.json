@@ -1,3 +1,8 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:system"
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "files.exclude": {
+        "python-cli-practice": true,
+        "stage1/fastapi-learning": true,
+        "stage1/LangChain-Learning": true
+    }
 }
