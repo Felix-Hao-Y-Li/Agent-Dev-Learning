@@ -1,6 +1,8 @@
 import asyncio
 import httpx
+import logging
 
+logger = logging.getLogger(__name__)
 async def geocode(city: str) -> tuple[float, float]:
     async with httpx.AsyncClient() as client:
         response = await client.get(

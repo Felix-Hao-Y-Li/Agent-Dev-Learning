@@ -8,3 +8,11 @@ dependencies = [
     "pydantic>=2.13.4",
     "typer>=0.27.1",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

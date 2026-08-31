@@ -1,6 +1,9 @@
+import logging
 import typer
 import json
 from pydantic import BaseModel
+
+logger = logging.getLogger(__name__)
 
 class TodoItem(BaseModel):
     id: int
