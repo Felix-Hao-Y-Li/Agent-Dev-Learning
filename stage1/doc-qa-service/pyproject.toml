@@ -1,0 +1,53 @@
+[project]
+name = "doc-qa-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+    "langchain>=1.4.0",
+    "langchain-chroma>=1.1.0",
+    "langchain-deepseek>=1.1.0",
+    "langchain-huggingface>=1.2.2",
+    "langchain-text-splitters>=1.1.2",
+    "pydantic-settings>=2.15.0",
+    "pypdf>=6.18.0",
+    "python-dotenv>=1.2.3",
+    "sentence-transformers>=6.0.1",
+    "torch>=2.14.0",
+]
+
+[tool.uv.sources]
+# 开发机（Windows）用 CUDA 版，跑得快。
+# 容器（Linux）用 CPU 版：CUDA 版的 torch 加上 nvidia 运行库有 3 GB 以上，
+# 镜像会大到推不动，而且需要宿主机装 nvidia-container-toolkit 才能用上显卡。
+torch = [
+  { index = "pytorch-cu130", marker = "sys_platform == 'win32'" },
+  { index = "pytorch-cpu", marker = "sys_platform == 'linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+]
+
+[tool.pytest.ini_options]
+# asyncio_mode = "auto" 让 pytest 直接认出 async def 的测试函数，
+# 不用在每个测试上手写 @pytest.mark.asyncio 装饰器。
+asyncio_mode = "auto"
+# 把项目根目录加进模块搜索路径，测试里才能 import app.xxx
+pythonpath = ["."]
+testpaths = ["tests"]

@@ -1,0 +1,5 @@
+# 首次运行时下载的示例 PDF，不提交进仓库
+data/*.pdf
+faiss_index/
+chroma_db/
+chroma_db_selftest/

@@ -1,0 +1,31 @@
+[project]
+name = "query-transformation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "jieba>=0.42.1",
+    "langchain>=1.4.2",
+    "langchain-chroma>=1.1.0",
+    "langchain-classic>=1.0.8",
+    "langchain-community>=0.4.2",
+    "langchain-deepseek>=1.1.0",
+    "langchain-huggingface>=1.2.2",
+    "langchain-text-splitters>=1.1.2",
+    "pypdf>=6.19.0",
+    "python-dotenv>=1.2.3",
+    "rank-bm25>=0.2.2",
+    "reportlab>=5.0.1",
+    "sentence-transformers>=6.1.0",
+    "torch>=2.14.0",
+]
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu130", marker = "sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true

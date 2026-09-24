@@ -218,3 +218,5 @@ CLAUDE.md
 
 # 本地学习过程记录（日志+计划+总计划），不提交
 study-log/
+# Claude Code 本地设置（个人偏好，不提交）
+settings.local.json

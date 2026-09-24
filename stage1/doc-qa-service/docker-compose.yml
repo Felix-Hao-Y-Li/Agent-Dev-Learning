@@ -1,0 +1,56 @@
+# 编排文件 —— 描述这个服务由哪几个容器组成、它们怎么协作。
+#
+# 这里有两个服务，对应 ADR-003 的写读分离：
+#   ingest  跑一次就退出的任务容器，负责把 data/ 里的文档写进向量库
+#   api     长期运行的服务容器，只读向量库
+#
+# 常用命令（在本文件所在目录执行）：
+#   docker compose build          构建镜像
+#   docker compose run --rm ingest   手动跑一次入库
+#   docker compose up -d          启动服务（会先自动跑完 ingest）
+#   docker compose logs -f api    看日志
+#   docker compose down           停止并删除容器（数据卷保留）
+
+services:
+  ingest:
+    build: .
+    image: doc-qa-service:latest
+    # 覆盖镜像里的 CMD，改成跑入库命令。跑完就退出。
+    command: ["python", "-m", "app.ingest"]
+    env_file:
+      - .env
+    volumes:
+      # 向量库放在命名卷里，两个容器共享。
+      - chroma-data:/data/chroma
+      # 语料目录从宿主机挂进去，:ro 表示容器内只读。
+      # 这样改了 data/ 里的文档，重跑 ingest 就能生效，不用重新构建镜像。
+      - ./data:/app/data:ro
+
+  api:
+    build: .
+    image: doc-qa-service:latest
+    ports:
+      # 宿主机 8000 端口映射到容器 8000 端口。
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      # 这里挂的是同一个卷。
+      #
+      # 理想状态是加 :ro 做成只读挂载，把「服务进程不写库」这条约定
+      # 从代码约定升级成基础设施强制。但 Chroma 底层是 SQLite，
+      # 即使只读查询也需要创建 -wal / -shm 辅助文件，
+      # 真挂成只读会直接报错。所以这里只能靠代码自觉。
+      - chroma-data:/data/chroma
+    depends_on:
+      ingest:
+        # 等 ingest 容器成功退出后再启动 api。
+        # 不加这个条件的话，api 可能在库还空着的时候就起来了，
+        # /readyz 会一直返回 503。
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+volumes:
+  # 命名卷由 Docker 管理，容器删了数据还在。
+  # 想彻底清掉重来：docker compose down -v
+  chroma-data:
