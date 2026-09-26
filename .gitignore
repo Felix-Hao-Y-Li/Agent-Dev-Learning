@@ -220,3 +220,8 @@ CLAUDE.md
 study-log/
 # Claude Code 本地设置（个人偏好，不提交）
 settings.local.json
+
+# RGB 公开数据集（CC BY-NC-SA 4.0，仅限非商业用途）不随仓库分发，按 eval_02 文件头的命令自行下载
+stage2/data/rgb/
+# 评估运行产物（含数据集原文片段，且每次运行都会变化）
+stage2/evaluation/results/
